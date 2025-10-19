@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+body{
+    counter-reset: toc_section; /* 目次内のsection番号 */
+}
+
+ul {
+    list-style: none;           /* マーカーや左空きを消す */
+    margin-inline-start: 0;
+    padding-inline-start: 0;
+}
+
+.toc-section {                      /* section見出し */
+    counter-increment: toc_section;
+    counter-reset: toc_subsection;
+    font-size: 16Q;
+    line-height: 1.2em;
+}
+
+.toc-subsection{
+    counter-increment: toc_subsection;
+    counter-reset: toc_subsubsection;
+    font-size: 14Q;
+    line-height: 1.2em;
+    margin-inline-start: 6mm;
+}
+
+.toc-subsubsection{
+    counter-increment: toc_subsubsection;
+    font-size: 14Q;
+    line-height: 1.2em;
+    margin-inline-start: 12mm;
+}
+
+.toc-section::before {
+    content: "第" counter(toc_section) "章　";
+    display: inline-block;
+}
+
+.toc-subsection::before {
+    content: counter(toc_section) "." counter(toc_subsection) "　";
+    display: inline-block;
+}
+
+.toc-subsubsection::before {
+    content: counter(toc_section) "." counter(toc_subsection) "." counter(toc_subsubsection) "　";
+    display: inline-block;
+}
+
+.toc-section::after, .toc-subsection::after, .toc-subsubsection::after {
+    font-size: 10Q;
+    font-family: var(--monospace-font);
+    content: leader(dotted) " " target-counter(attr(href url), page);
+    margin-inline-start: 0.5em;
+}
+
+li code {   /* タイトルのcode要素が少し小ぶりに見えるので調整 */
+    font-size: 105%;
+}
+

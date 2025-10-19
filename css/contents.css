@@ -1,0 +1,195 @@
+@charset "UTF-8";
+
+@page contents {                    /* 章番号を加算 */
+    counter-increment: section;
+}
+
+h1{
+    page: contents; /*章番号を加算 */
+}
+
+h1::before {
+    font-size: 16Q;
+    line-height: 1.5lh;
+    content : "第" counter(section) "章　";
+    margin-block-end: 0.5em;
+}
+
+h2::before {
+    font-size: 20Q;
+    content: counter(section) "." counter(subsection) " ";
+}
+
+h3::before {
+    content: counter(section) "." counter(subsection) "." counter(subsubsection) " ";
+    font-size: 16Q;
+}
+
+/******************************************************************** 図・コード */
+
+img {
+    max-inline-size: 100%;
+    border: none;
+    display: block;
+}
+
+figure{
+    margin-inline: 0;
+}
+
+figure:has(img) {
+    margin-block: 0 1em;    /* 上下 */
+}
+
+figure:has(pre){
+    margin-block: 0;  /* 上下 */
+}
+
+figure:has(img) figcaption::before {
+    content: "図" counter(figure-counter) "：";
+    counter-increment: figure-counter;
+}
+
+figure:has(pre) figcaption::before {
+    content: "コード" counter(code-counter) "：";
+    counter-increment: code-counter;
+}
+
+figcaption{
+    position: relative;
+    text-align: left;
+    display: inline;
+    background-color: white;
+    border: solid #000 0.3mm;
+    font-family: var(--monospace-font);;
+    top: 0.7em;
+    left: 0;
+    margin: 0;
+    padding: 0 0.5em;
+    font-size: 10Q;
+    line-height: 1.4em;
+}
+
+figure.language-left{
+    width: 49%;
+    float: inline-start;
+}
+
+figure.language-right{
+    width: 49%;
+    float: inline-end;
+}
+
+figure.language-right + *{
+    clear: both;
+}
+
+pre {
+    white-space: pre-wrap;          /* スペースを詰めず，行折返しあり */
+    line-break: anywhere;           /* 禁則無効 */
+    letter-spacing: none;             /* 無効化 */
+    font-size: 12Q;
+    line-height: 16Q;
+    border: solid 0.3mm #000;
+    padding-block: 1mm;             
+    padding-inline: 1.5mm;          /* 左右 */
+    margin-block: 1mm;              /* 上下 */
+    margin-inline: 0;               /* 左右 */
+    background: repeating-linear-gradient(180deg, #eee 0Q, #eee 16Q, #fff 16Q, #fff 32Q);    /* グラデーション */
+    background-position-y: 1.4mm;
+}
+
+ul, ol {
+    margin-block-start: 0;
+    padding-block-start: 0;
+    margin-block-end: 0;
+    padding-block-end: 0;
+}
+
+dl {
+    display: grid;
+    column-gap: 1em;
+    grid-template-columns: [key] minmax(100px, min-content) [value] 1fr;
+}
+  
+dl dt {
+    grid-column: key;
+    white-space: nowrap;
+}
+  
+dl dd {
+    grid-column: value;
+    margin-left: 0;
+}
+
+hr{
+    break-before: page;
+    visibility: hidden;
+}
+
+table.mytable{
+    table-layout: fixed;
+    width: 100%;
+    border: solid black 1px;
+    border-collapse: collapse;
+}
+
+table.mytable td, table.mytable th{
+    padding-left: 0.5em;
+    border-top: solid lightgray 0.5px;
+    /* border-bottom: solid lightgray 0.5px; */
+    border-spacing: 2px;
+}
+
+table.mytable tr.noborder td, table.mytable tr.noborder th{
+    border-top: none;
+}
+
+.mytable .col4{
+    width: 4em;
+}
+
+.mytable .col6{
+    width: 6em;
+}
+.mytable .col8{
+    width: 8em;
+}
+.mytable .col10{
+    width: 10em;
+}
+.mytable .col12{
+    width: 12em;
+}
+.mytable .col14{
+    width: 14em;
+}
+.mytable .col16{
+    width: 16em;
+}
+.mytable .col18{
+    width: 18em;
+}
+.mytable .col20{
+    width: 20em;
+}
+
+/********************************************** footnote */
+
+.notetext{
+    float: footnote;
+    font-size: 12Q;
+    line-height: 16Q;
+    text-indent: 0;
+}
+
+::footnote-marker{
+    content: counter(footnote) ") ";
+}
+
+::footnote-call{
+    content: " " counter(footnote) ") ";
+    font-size: 0.7em;
+    position: relative;
+    inset-block-start: -0.5em;
+}

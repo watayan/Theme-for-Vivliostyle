@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+@page {
+    @bottom-center {                        /* 奥付はページ番号なし */
+        content: none;
+    }
+}
+
+body{
+    height: 100%;
+    margin: 0;
+}
+
+:has(#author-info){
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+#author-info h1{
+    font-size: 16Q;
+    border: none;
+}
+
+#author-info h1::before{
+    content: "[";
+}
+
+#author-info h1::after{
+    content: "]";
+}
+
+#author-info p {
+    line-height: 1.8em;
+    text-indent: 0;
+}
+
+#author-info dl {
+    margin-block-start: 0mm;
+    display: grid;
+    grid-template-columns: 6em auto;
+    column-gap: 1em;
+    row-gap: 0mm;
+}
+
+#author-info dl dt {
+    margin: 0;
+}
+
+#author-info dl dd {
+    margin: 0;
+}
+
+
+#book-info dl{
+    display: grid;
+    grid-template-columns: 4em 4em auto;
+    column-gap: 1em;
+    row-gap: 1mm;
+}
+
+#book-info dt {
+    grid-column: 1/2;
+    text-align-last: justify;
+    margin: 0;
+}
+
+#book-info dd {
+    grid-column: 2/4;
+    margin: 0;
+}
+
+#book-info dt.title {
+    grid-column: 1/4;
+    font-size: 18Q;
+    line-height: 1.5em;
+    border-block-end: solid 0.5mm #000;
+    padding-block-end: 2mm;
+    margin-block-end: 2mm;
+    text-align-last: left;
+}
+
+#book-info dt.title::after{ /* タイトルは自動的に */
+    content: env(pub-title);
+}
+
+#book-info dt.publish {
+    grid-column: 1/3;
+}
+
+#book-info dt.publish + dd{
+    grid-column: 3/4;
+}
+

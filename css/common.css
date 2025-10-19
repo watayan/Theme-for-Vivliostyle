@@ -1,0 +1,117 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=BIZ+UDPMincho&family=M+PLUS+1+Code:wght@100..700&display=swap');
+
+/* @font-face {
+    font-family: "BIZ UDPGothic";
+    src: url("../fonts/BIZUDPGothic-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "BIZ UDPMincho";
+    src: url("../fonts/BIZUDPMincho-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "M PLUS 1 Code";
+    src: url("../fonts/MPLUS1Code-Regular.ttf") format("truetype");
+} */
+
+@page {
+    margin-block: 10mm 18mm;            /* 天・地 */
+    @bottom-center {                    /* ページ番号 */ 
+        font-family: var(--monospace-font);
+        font-size: 10Q;
+        content: "- " counter(page) " -";
+    }
+}
+
+@page :left {
+    margin-inline: 16mm 18.25mm;    /* 小口・ノド */
+}
+
+@page :right {
+    margin-inline: 18.25mm 16mm;    /* ノド・小口 */
+}
+
+@page :first {
+    counter-reset: section page 2;  /* 表1・表2の分のページ番号をスキップ */
+}
+
+/* body{
+    counter-reset: figure-counter code-counter table-counter;   /* 章ごとにリセット
+ */
+
+:root{
+    --sans-serif-font: "BIZ UDPGothic", sans-serif;
+    --serif-font: "BIZ UDPMincho", serif;
+    --monospace-font: "M PLUS 1 Code", monospace;
+    font-size: 13Q;
+    line-height: 22Q;
+    font-family: "BIZ UDPMincho", serif;
+    font-weight: 400;
+    letter-spacing: normal;
+    hanging-punctuation: allow-end;
+    widows: 1;
+    orphans: 1;
+}
+
+
+/****************************************************************************************************************************** 見出し */
+
+h1, h2, h3{
+    font-family: var(--sans-serif-font);
+    font-weight: 400;
+}
+
+h1 {                                /* section */
+    font-size: 24Q;
+    display:inline-block;
+    width: 100%;
+    border-bottom: #000 solid 1pt;
+    break-before: left;
+    counter-reset: subsection figure-counter code-counter;
+}
+
+h2 {                                /* section */
+    font-size: 20Q;
+    border-left: #000 solid 4pt;
+    padding-left: 0.5em;
+    counter-increment: subsection;
+    counter-reset: subsubsection;
+}
+
+h3 {                                /* subsubsection */
+    font-size: 16Q;
+    clear: both;
+    margin-block-end: 0.5em;
+    counter-increment: subsubsection;
+}
+
+h1 + section h2, h2 + section h3{
+    break-before: avoid;
+}
+
+/* ***************************************************************************************************** 本文 */
+
+p {
+    font-size: 13Q;
+    line-height: 22Q;
+    text-align: justify;
+    text-indent: 1em;
+    margin-block: 0;
+}
+
+a{      /* リンクはそう見えないようにする */
+    text-decoration: none;
+    color: #000;
+}
+
+em{     /* 強調はゴシックで */    
+    font-style: normal;
+    font-family:  var(--sans-serif-font);;
+    font-weight: 700;
+}
+
+code, pre {
+    font-family:  var(--monospace-font);;
+}
+
