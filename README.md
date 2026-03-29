@@ -50,3 +50,17 @@
 ### ヨハネの黙示録 - 終末と永遠の勝利
 ```
 これを処理するに当たって，`level=1`だと旧約聖書が`topic01.md`，新約聖書が`topic02.md`になる。`level=2`だと立法書が`topic01.md`，歴史書が`topic02.md`になる。
+
+## 使用にあたって
+
+1. `package.json`の`name`、`description`、`author`を書籍の情報に合わせて編集してください
+2. 必要に応じて`license`フィールドも変更してください
+3. 作成される書籍のライセンスに応じて、`LICENSE`ファイルも更新してください
+
+## テンプレートのライセンス
+
+このテンプレート自体は [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/) で提供されます。
+
+[![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/)
+
+このテンプレートを使用して作成された書籍のライセンスは、書籍の著者が自由に決定してください。
