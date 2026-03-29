@@ -5,7 +5,7 @@ const vivliostyleConfig = {
   author: '...',
   size: 'A5',
   theme: ['css/common.css', 'css/contents.css'],
-  image: 'ghcr.io/vivliostyle/cli:9.7.1',
+  image: 'ghcr.io/vivliostyle/cli:10.3.1',
   entry: [
     {
       path:  'preface.md',
@@ -15,11 +15,8 @@ const vivliostyleConfig = {
       path: 'toc.md',
       theme: ['css/common.css', 'css/toc.css']
     },
-    'section01.md',
-    'section02.md',
-    'section03.md',
-    'section04.md',
-    'section05.md',
+    'topic01.md',
+    'topic02.md',
     {
       path: 'postface.md',
       theme: 'css/common.css'

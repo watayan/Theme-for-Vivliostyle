@@ -18,16 +18,16 @@ body{
     height: 100%;
 }
 
-#author-info h1{
+#author-info h2{
     font-size: 16Q;
     border: none;
 }
 
-#author-info h1::before{
+#author-info h2::before{
     content: "[";
 }
 
-#author-info h1::after{
+#author-info h2::after{
     content: "]";
 }
 

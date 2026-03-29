@@ -1,28 +1,47 @@
 @charset "UTF-8";
 
-@page contents {                    /* 章番号を加算 */
-    counter-increment: section;
+@page top_level1 {
+    counter-increment: level1 level2;
+}
+
+@page top_level2 {
+    counter-increment: level2;
 }
 
 h1{
-    page: contents; /*章番号を加算 */
+    page: top_level1;
+}
+
+h2{
+    page: top_level2;
 }
 
 h1::before {
-    font-size: 16Q;
-    line-height: 1.5lh;
-    content : "第" counter(section) "章　";
+    font-size: 24Q;
+    /* line-height: 1.5lh; */
+    content : "第" counter(level1)"章　";
     margin-block-end: 0.5em;
 }
 
 h2::before {
-    font-size: 20Q;
-    content: counter(section) "." counter(subsection) " ";
+    line-height: 1.5lh;
+    content : counter(level2)"　";
+    margin-block-end: 0.5em;
 }
 
 h3::before {
-    content: counter(section) "." counter(subsection) "." counter(subsubsection) " ";
+    font-size: 20Q;
+    content: counter(level2) "." counter(level3) "　";
+}
+
+h4::before {
+    content: counter(level2) "." counter(level3) "." counter(level4) "　";
     font-size: 16Q;
+}
+
+h5::before {
+    content: counter(level2) "." counter(level3) "." counter(level4) "." counter(level5) "　";
+    font-size: 14Q;
 }
 
 /******************************************************************** 図・コード */
@@ -38,7 +57,7 @@ figure{
 }
 
 figure:has(img) {
-    margin-block: 0 1em;    /* 上下 */
+    margin-block: 1em 1em;    /* 上下 */
 }
 
 figure:has(pre){
@@ -62,25 +81,53 @@ figcaption{
     background-color: white;
     border: solid #000 0.3mm;
     font-family: var(--monospace-font);;
-    top: 0.7em;
+    top: 0em;
     left: 0;
     margin: 0;
-    padding: 0 0.5em;
+    padding: 0 0em;
     font-size: 10Q;
-    line-height: 1.4em;
+    line-height: 1em;
 }
 
+/* inline-blockベースの横並び（transform使用） */
 figure.language-left{
     width: 49%;
-    float: inline-start;
+    display: inline-block;
+    vertical-align: top;
 }
 
 figure.language-right{
-    width: 49%;
-    float: inline-end;
+    width: 49%; 
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    left: 51%; /* 幅49% + 間隔2% */
+    transform: translateX(-100%);
 }
 
-figure.language-right + *{
+/* 確実なクリア用 */
+.clear{
+    clear: both !important;
+    display: block !important;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+}
+
+/* フォールバック：floatも残しておく */
+@supports not (display: inline-block) {
+    figure.language-left{
+        float: left;
+    }
+    figure.language-right{
+        float: right;
+    }
+}
+
+/* langauge-rightの後に自動的にクリアする疑似要素を追加 */
+figure.language-right::after{
+    content: "";
+    display: table;
     clear: both;
 }
 
@@ -88,14 +135,14 @@ pre {
     white-space: pre-wrap;          /* スペースを詰めず，行折返しあり */
     line-break: anywhere;           /* 禁則無効 */
     letter-spacing: none;             /* 無効化 */
-    font-size: 12Q;
-    line-height: 16Q;
+    font-size: 10Q;
+    line-height: 14Q;
     border: solid 0.3mm #000;
     padding-block: 1mm;             
     padding-inline: 1.5mm;          /* 左右 */
     margin-block: 1mm;              /* 上下 */
     margin-inline: 0;               /* 左右 */
-    background: repeating-linear-gradient(180deg, #eee 0Q, #eee 16Q, #fff 16Q, #fff 32Q);    /* グラデーション */
+    background: repeating-linear-gradient(180deg, #eee 0Q, #eee 14Q, #fff 14Q, #fff 28Q);    /* しましま */
     background-position-y: 1.4mm;
 }
 
@@ -104,6 +151,7 @@ ul, ol {
     padding-block-start: 0;
     margin-block-end: 0;
     padding-block-end: 0;
+    padding-inline-start: 2em;
 }
 
 dl {
@@ -139,10 +187,17 @@ table.mytable td, table.mytable th{
     border-top: solid lightgray 0.5px;
     /* border-bottom: solid lightgray 0.5px; */
     border-spacing: 2px;
+    text-align: left;
 }
 
 table.mytable tr.noborder td, table.mytable tr.noborder th{
     border-top: none;
+}
+
+table.mytable th{
+    font-family: var(--sans-serif-font);
+    font-weight: normal;
+    /* font-weight: bold; */
 }
 
 .mytable .col4{
@@ -176,11 +231,19 @@ table.mytable tr.noborder td, table.mytable tr.noborder th{
 
 /********************************************** footnote */
 
+/* 脚注（notetext）のスタイル */
+
 .notetext{
     float: footnote;
     font-size: 12Q;
     line-height: 16Q;
     text-indent: 0;
+}
+
+.notetext::after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 ::footnote-marker{
@@ -193,3 +256,4 @@ table.mytable tr.noborder td, table.mytable tr.noborder th{
     position: relative;
     inset-block-start: -0.5em;
 }
+

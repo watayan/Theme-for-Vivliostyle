@@ -1,53 +1,69 @@
 @charset "UTF-8";
 
 body{
-    counter-reset: toc_section; /* 目次内のsection番号 */
+    counter-reset: toc_level1 toc_level2 toc_level3 toc_level4; /* 目次内のsection番号 */
 }
 
-ul {
+nav ul {
     list-style: none;           /* マーカーや左空きを消す */
     margin-inline-start: 0;
     padding-inline-start: 0;
 }
 
-.toc-section {                      /* section見出し */
-    counter-increment: toc_section;
-    counter-reset: toc_subsection;
-    font-size: 16Q;
-    line-height: 1.2em;
+.toc-level1 {                      /* chapter見出し */
+    font-family: var(--sans-serif-font);
+    counter-increment: toc_level1;
+    font-size: 18Q;
+    line-height: 2em;
 }
 
-.toc-subsection{
-    counter-increment: toc_subsection;
-    counter-reset: toc_subsubsection;
-    font-size: 14Q;
-    line-height: 1.2em;
+.toc-level2 {                      /* section見出し */
+    counter-increment: toc_level2;
+    counter-reset: toc_level3;
+    font-family: var(--sans-serif-font);
+    font-size: 16Q;
+    line-height: 1.8em;
     margin-inline-start: 6mm;
 }
 
-.toc-subsubsection{
-    counter-increment: toc_subsubsection;
+.toc-level3{
+    counter-increment: toc_level3;
+    counter-reset: toc_level4;
+    font-family: var(--sans-serif-font);
     font-size: 14Q;
     line-height: 1.2em;
     margin-inline-start: 12mm;
 }
 
-.toc-section::before {
-    content: "第" counter(toc_section) "章　";
+.toc-level4{
+    counter-increment: toc_level4;
+    font-family: var(--sans-serif-font);
+    font-size: 14Q;
+    line-height: 1.2em;
+    margin-inline-start: 18mm;
+}
+
+.toc-level1::before {
+    content: "第" counter(toc_level1)"章　";
     display: inline-block;
 }
 
-.toc-subsection::before {
-    content: counter(toc_section) "." counter(toc_subsection) "　";
+.toc-level2::before {
+    content: counter(toc_level2)"　";
     display: inline-block;
 }
 
-.toc-subsubsection::before {
-    content: counter(toc_section) "." counter(toc_subsection) "." counter(toc_subsubsection) "　";
+.toc-level3::before {
+    content: counter(toc_level2) "." counter(toc_level3) "　";
     display: inline-block;
 }
 
-.toc-section::after, .toc-subsection::after, .toc-subsubsection::after {
+.toc-level4::before {
+    content: counter(toc_level2) "." counter(toc_level3) "." counter(toc_level4) "　";
+    display: inline-block;
+}
+
+.toc-level2::after, .toc-level3::after, .toc-level4::after {
     font-size: 10Q;
     font-family: var(--monospace-font);
     content: leader(dotted) " " target-counter(attr(href url), page);
@@ -58,3 +74,11 @@ li code {   /* タイトルのcode要素が少し小ぶりに見えるので調�
     font-size: 105%;
 }
 
+hr{
+    break-before: page;
+    visibility: hidden;
+}
+
+h3 {
+    border: none;
+}

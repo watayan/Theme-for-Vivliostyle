@@ -1,0 +1,20 @@
+{
+  "name": "thin-book-with-vivliostyle",
+  "version": "1.0.0",
+  "description": "Vivliostyleでつくるうすい本",
+  "main": "vivliostyle.config.js",
+  "scripts": {
+    "toc" : "node toc.js",
+    "build" : "npm run toc && npx vivliostyle build",
+    "full": "npm run toc && npx vivliostyle build & pdftk cover1.pdf cover2.pdf contents.pdf cover3.pdf cover4.pdf cat output ThinBookWithVivliostyle2.pdf",
+    "preview" : "npm run toc && npx vivliostyle preview",
+    "clean" : "rm -f contents.pdf toc.md",
+    "distclean" : "npm run clean && rm -f ThinBookWithVivliostyle2.pdf"
+  },
+  "author": "わたやん",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@vivliostyle/cli": "^10.3.1"
+  }
+}
