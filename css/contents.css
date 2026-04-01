@@ -88,46 +88,17 @@ figcaption{
     font-size: 10Q;
     line-height: 1em;
 }
-
-/* inline-blockベースの横並び（transform使用） */
 figure.language-left{
     width: 49%;
-    display: inline-block;
-    vertical-align: top;
+    float: inline-start;
 }
 
 figure.language-right{
     width: 49%; 
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-    left: 51%; /* 幅49% + 間隔2% */
-    transform: translateX(-100%);
+    float: inline-end;
 }
 
-/* 確実なクリア用 */
-.clear{
-    clear: both !important;
-    display: block !important;
-    width: 100%;
-    height: 0;
-    overflow: hidden;
-}
-
-/* フォールバック：floatも残しておく */
-@supports not (display: inline-block) {
-    figure.language-left{
-        float: left;
-    }
-    figure.language-right{
-        float: right;
-    }
-}
-
-/* langauge-rightの後に自動的にクリアする疑似要素を追加 */
-figure.language-right::after{
-    content: "";
-    display: table;
+figure.language-right + * {
     clear: both;
 }
 

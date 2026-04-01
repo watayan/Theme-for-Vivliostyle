@@ -18,7 +18,7 @@ function makeTopic() {
     var topics = [];
     var preLevel = 100;
     for(var line of lines) {
-        const match = line.match(/^(\s*)-\s+(.*)/);
+        const match = line.match(/^(\s*)[\-\*]\s+(.*)/);
         if(match) {
             const indent = match[1].length;
             const title = match[2];
