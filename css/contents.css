@@ -18,8 +18,7 @@ h2{
 
 h1::before {
     font-size: 24Q;
-    /* line-height: 1.5lh; */
-    content : "第" counter(level1)"章　";
+    content : "第" counter(level1)"章";
     margin-block-end: 0.5em;
 }
 
