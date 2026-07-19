@@ -1,11 +1,14 @@
 // @ts-check
-/** @type {import('@vivliostyle/cli').VivliostyleConfigSchema} */
-const vivliostyleConfig = {
-  title: '...',
-  author: '...',
+import { defineConfig } from '@vivliostyle/cli';
+
+export default defineConfig({
+  title: "My Title",
+  author: "My Name",
+  language: "ja",
+  browser: "chrome@150.0.7871.115",
+  image: "ghcr.io/vivliostyle/cli:11.1.0",
   size: 'A5',
   theme: ['css/common.css', 'css/contents.css'],
-  image: 'ghcr.io/vivliostyle/cli:10.3.1',
   entry: [
     {
       path:  'preface.md',
@@ -28,6 +31,4 @@ const vivliostyleConfig = {
   ],
   output: './contents.pdf',
   workspaceDir: '.vivliostyle',
-};
-
-module.exports = vivliostyleConfig;
+});
