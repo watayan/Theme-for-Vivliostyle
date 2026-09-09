@@ -1,27 +1,24 @@
 # Theme-for-Vivliostyle
-「Vivliostyleでつくるうすい本」で紹介している，自分用の執筆用フォーマット類です。
+「Vivliostyleでつくるうすい本」で紹介している，自分用の執筆用フォーマット類です。Vivliostyle/cli v11に合わせて改良しました。
 
 ## 使ったソフトウェア
 - Node.js
-- vivliostyle-cli
+- vivliostyle/cli
 - Visual Studio Code
 - pdftk
 
 ## ファイル構成
 ```
 ./ -+- vivliostyle.config.js
-    +- toc.js                 目次生成スクリプト
-    +- outline.js             outline.mdから見出しだけのtopic*.mdを生成する
+    +- toc.cjs                 目次生成スクリプト
+    +- outline.cjs             outline.mdから見出しだけのtopic*.mdを生成する
     +- css/
-       +- common.css          共通CSS
-       +- contents.css        本文用CSS
-       +- toc.css             目次用CSS
-       +- colophon.css        奥付用CSS
+       +- common.css          CSS
        +- fonts/              TrueTypeフォントを置くフォルダ
     +- images/                画像ファイルを置くフォルダ
 ```
 
-## `outline.js`について
+## `outline.cjs`について
 
 章立てを箇条書きにした`outline.md`を読み込んで，`topic*.md`ファイルを生成する。最初の行の`level`はどのレベルの見出しによってファイルを分割するかを表す。たとえば`outline.md`が以下のとおりだったとする。
 ```
@@ -49,7 +46,7 @@
 ## 預言書
 ### ヨハネの黙示録
 ```
-これを処理するに当たって，`level=1`だと旧約聖書が`topic01.md`，新約聖書が`topic02.md`になる。`level=2`だと律法書が`topic01.md`，歴史書が`topic02.md`になる。
+これを`npm run outline`で処理すると，`level=1`だと旧約聖書が`topic01.md`，新約聖書が`topic02.md`になる。`level=2`だと律法書が`topic01.md`，歴史書が`topic02.md`になる。なお，`topic*.md`が存在するときは実行されない。
 
 ## 使用にあたって
 
