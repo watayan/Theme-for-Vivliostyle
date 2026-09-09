@@ -1,5 +1,5 @@
 # Theme-for-Vivliostyle
-「Vivliostyleでつくるうすい本」で紹介している，自分用の執筆用フォーマット類です。Vivliostyle/cli v11に合わせて改良しました。
+「Vivliostyleでつくるうすい本」で紹介している，自分用の執筆用フォーマット類です。Vivliostyle/cli v11に合わせて改良しました。この修正には[「Vivliostyleで番号を振る」](https://github.com/mat-der-D/vivliostyle-numbering/)を参考にさせていただきました。
 
 ## 使ったソフトウェア
 - Node.js
