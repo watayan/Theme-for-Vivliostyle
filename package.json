@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "プロジェクトの説明",
   "main": "vivliostyle.config.js",
+  "type": "module",
   "scripts": {
-    "toc" : "node toc.js",
+    "toc" : "node toc.cjs",
+    "outline" : "node outline.cjs",
     "build" : "npm run toc && npx vivliostyle build",
     "full": "npm run toc && npx vivliostyle build & pdftk cover1.pdf cover2.pdf contents.pdf cover3.pdf cover4.pdf cat output hoge.pdf",
     "preview" : "npm run toc && npx vivliostyle preview",

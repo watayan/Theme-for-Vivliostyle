@@ -6,28 +6,22 @@ export default defineConfig({
   author: "My Name",
   language: "ja",
   browser: "chrome@150.0.7871.115",
-  image: "ghcr.io/vivliostyle/cli:11.1.0",
+  image: "ghcr.io/vivliostyle/cli:11.2.0",
   size: 'A5',
-  theme: ['css/common.css', 'css/contents.css'],
+  theme: 'css/common.css',
   entry: [
-    {
-      path:  'preface.md',
-      theme: 'css/common.css'
-    },
-    {
-      path: 'toc.md',
-      theme: ['css/common.css', 'css/toc.css']
-    },
+    'preface.md',
+    'toc.md',
     'topic01.md',
     'topic02.md',
-    {
-      path: 'postface.md',
-      theme: 'css/common.css'
-    },
-    {
-      path: 'colophon.md',
-      theme: ['css/common.css', 'css/colophon.css']
-    }
+    'topic03.md',
+    'topic04.md',
+    'topic05.md',
+    'topic06.md',
+    'topic07.md',
+    'topic08.md',
+    'postface.md',
+    'colophon.md'
   ],
   output: './contents.pdf',
   workspaceDir: '.vivliostyle',

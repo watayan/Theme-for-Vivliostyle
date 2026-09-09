@@ -1,4 +1,4 @@
-const level = 1;    // 1ファイルにするのはoutline.mdの何階層にするか。
+const level = 2;    // 1ファイルにするのはoutline.mdの何階層にするか。
 
 const fs = require('fs');
 
@@ -24,16 +24,30 @@ function makeTopic() {
             const title = match[2];
             if(indent > 0 && indentLength == 0) indentLength = indent;
             const currentLevel = indentLength > 0 ? indent / indentLength : 0;
-            if(currentLevel < level && preLevel >= level) topics.push([]);
+            console.log(`Current level: ${currentLevel}, Pre level: ${preLevel}`);
+            if(currentLevel < level && preLevel >= level - 1)
+            {
+                topics.push([]);
+                console.log('New topic started:', title);
+            }
             topics.at(-1).push('#'.repeat(currentLevel + 1) + ' ' + title);
             preLevel = currentLevel;
         }
     }
     for(var titles of topics) {
         const topicFile = `topic${(topics.indexOf(titles) + 1).toString().padStart(2, '0')}.md`;
-        fs.writeFileSync(topicFile, titles.join('\n\n') + '\n');
+        var topicTitle = '';
+        for(var title of titles) {
+            if(title.startsWith('#'.repeat(level) + ' ')) {
+                topicTitle = title.replace(/^#* /, '');
+                break;
+            }
+        }
+        fs.writeFileSync(topicFile, '---\nclass: contents\ntitle: ' + topicTitle + '\n---\n\n');
+        fs.appendFileSync(topicFile, titles.join('\n\n') + '\n');
         console.log(`Created ${topicFile}`);
     }
 }
 
+console.log('Starting to generate topic files...');
 makeTopic();

@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+/*********************************************************** フォントの実体 */
+
 @font-face {
     font-family : "Noto Serif JP";
     font-style: normal;
@@ -38,6 +40,8 @@
     src: url("fonts/MPLUS/MPLUS1Code-Regular.ttf") format("truetype");
 }
 
+/*********************************************************** 全体に関わる設定 */
+
 :root{
     --sans-serif-font: "Noto Sans JP", sans-serif;
     --serif-font: "Noto Serif JP", serif;
@@ -57,86 +61,42 @@
     @bottom-center {                    /* ページ番号 */ 
         font-family: var(--monospace-font);
         font-size: 10Q;
-        content: "- " counter(page) " -";
+        content: "- " counter(p) " -";
     }
 }
 
-@page :left {
-    margin-inline: 16mm 18.25mm;    /* 小口・ノド */
+@page colophon {
+    @bottom-center { content: none;}    /* 奥付はページ番号なし */
 }
 
-@page :right {
-    margin-inline: 18.25mm 16mm;    /* ノド・小口 */
-}
+@page :left  { margin-inline: 16mm 18.25mm;    /* 小口・ノド */ }
+@page :right { margin-inline: 18.25mm 16mm;    /* ノド・小口 */}
 
-@page :first {
-    counter-reset: page 2;  /* 表1・表2の分のページ番号をスキップ */
-}
+/* 通し番号にする最下位のカウンタでファイルを分割する（ここではh2） */
+/* 通し番号にするカウンタをここでリセットする */
+@page :first { counter-reset: p 2 level1 0 level2 0;} /* ページ番号(p)は表1, 表2をスキップ */
 
+html.toc {page: toc;}                               /* 目次 */
+html.contents {page: contents;}                     /* 本文ファイル */
+html.contents :has(h1) { page: contents_h1; }       /* h1を持つ本文ファイル */
+html.preface {page: preface;}                       /* 序文 */
+html.postface {page: postface;}                     /* 後書き */
+html.colophon {page: colophon;}                     /* 奥付 */
+
+/* ページ先頭でインクリメントするカウンタ */
+@page {counter-increment: p;}
+/* 本文ファイル先頭でのカウンタインクリメント（pを忘れないこと） */
+@page :nth(1 of contents)    { counter-increment: p level2;}
+@page :nth(1 of contents_h1) { counter-increment: p level1 level2;}
 
 /*********************************************************** 見出し */
 
-h1, h2, h3, h4, h5{
+h1, h2, h3, h4, h5, h6{
     font-family: var(--sans-serif-font);
     font-weight: 400;
 }
 
-h1{
-    font-size: 28Q;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    break-before: page;
-    line-height: 1.5lh;
-    text-align: center;
-    margin: 0;
-}
-
-h2 {
-    font-size: 24Q;
-    display:inline-block;
-    width: 100%;
-    border-bottom: #000 solid 1pt;
-    break-before: left;
-    margin-block-start: 1em;
-    margin-block-end: 0.8em;
-    counter-reset: level3 figure-counter code-counter;
-}
-
-h3 {
-    font-size: 20Q;
-    border-left: #000 solid 4pt;
-    padding-left: 0.5em;
-    margin-block-start: 1.2em;
-    margin-block-end: 0.6em;
-    counter-increment: level3;
-    counter-reset: level4;
-}
-
-h4 {
-    font-size: 16Q;
-    margin-block-start: 1em;
-    margin-block-end: 0.5em;
-    counter-increment: level4;
-    counter-reset: level5;
-}
-
-h5 {
-    font-size: 14Q;
-    margin-block-start: 0.8em;
-    margin-block-end: 0.5em;
-    counter-increment: level5;
-}
-
-h2 + section h3, h3 + section h4 , h4 + section h5{
-    break-before: avoid;
-    margin-block-start: 0em;
-}
-
-/* **************************************************************** 本文 */
+/* **************************************************************** 共通設定 */
 
 p {
     font-size: 13Q;
@@ -165,3 +125,309 @@ code em {
     font-family:  var(--monospace-font);;
     font-weight: 700;
 }
+
+/**************************************************************** 本文見出し */
+
+body.contents h1{
+    font-size: 28Q;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    break-before: page;
+    line-height: 1.5lh;
+    text-align: center;
+    margin: 0;
+    /* counter-increment: level1; */ /* 通し番号なのでここでは触らない */
+    /* counter-reset: level2; */ /* 通し番号なのでここでは触らない */
+}
+
+body.contents h2 {
+    font-size: 24Q;
+    display:inline-block;
+    width: 100%;
+    border-bottom: #000 solid 1pt;
+    break-before: left;
+    margin-block-start: 1em;
+    margin-block-end: 0.8em;
+    /* counter-increment: level2; */ /* 通し番号なのでここでは触らない */
+    counter-reset: level3;
+}
+
+body.contents h3 {
+    font-size: 20Q;
+    border-left: #000 solid 4pt;
+    padding-left: 0.5em;
+    margin-block-start: 1.2em;
+    margin-block-end: 0.6em;
+    counter-increment: level3;
+    counter-reset: level4;
+}
+
+body.contents h4 {
+    font-size: 16Q;
+    margin-block-start: 1em;
+    margin-block-end: 0.5em;
+    counter-increment: level4;
+    counter-reset: level5;
+}
+
+body.contents h5 {
+    font-size: 14Q;
+    margin-block-start: 0.8em;
+    margin-block-end: 0.5em;
+    counter-increment: level5;
+    counter-reset: level6;
+}
+
+body.contents h6 {
+    font-size: 14Q;
+    margin-block-start: 0.8em;
+    margin-block-end: 0.5em;
+    counter-increment: level6;
+}
+
+body.contents h1::before {
+    content: "第" counter(level1) "章";
+}
+
+body.contents h2::before{
+    content: counter(level2) "　";
+}
+
+body.contents h3::before{
+    content: counter(level2) "." counter(level3) "　";
+}
+
+body.contents h4::before{
+    content: counter(level2) "." counter(level3) "." counter(level4) "　";
+}
+
+body.contents h5::before{
+    content: counter(level2) "." counter(level3) "." counter(level4) "." counter(level5) "　";
+}
+
+body.contents h6::before{
+    content: counter(level2) "." counter(level3) "." counter(level4) "." counter(level5) "." counter(level6) "　";
+}
+
+h2 + section h3, h3 + section h4 , h4 + section h5, h5 + section h6{
+    break-before: avoid;
+    margin-block-start: 0em;
+}
+
+/***************************************************************** 目次 */
+
+body.toc {
+    counter-reset: toc_level1 toc_level2 toc_level3 toc_level4; /* 目次内のsection番号 */
+}
+
+body.toc nav, body.toc nav ul {
+    list-style: none;           /* マーカーや左空きを消す */
+    margin-inline-start: 0;
+    padding-inline-start: 0;
+}
+
+body.toc .toc-level1 {                      /* chapter見出し */
+    font-family: var(--sans-serif-font);
+    counter-increment: toc_level1;
+    font-size: 18Q;
+    line-height: 2em;
+}
+
+body.toc .toc-level2 {                      /* section見出し */
+    counter-increment: toc_level2;
+    counter-reset: toc_level3;
+    font-family: var(--sans-serif-font);
+    font-size: 16Q;
+    line-height: 1.8em;
+    margin-inline-start: 6mm;
+}
+
+body.toc .toc-level3{
+    counter-increment: toc_level3;
+    counter-reset: toc_level4;
+    font-family: var(--sans-serif-font);
+    font-size: 14Q;
+    line-height: 1.2em;
+    margin-inline-start: 12mm;
+}
+
+body.toc .toc-level4{
+    counter-increment: toc_level4;
+    font-family: var(--sans-serif-font);
+    font-size: 14Q;
+    line-height: 1.2em;
+    margin-inline-start: 18mm;
+}
+
+body.toc .toc-level1::before {
+    content: "第" counter(toc_level1)"章　";
+    display: inline-block;
+}
+
+body.toc .toc-level2::before {
+    content: counter(toc_level2)"　";
+    display: inline-block;
+}
+
+body.toc .toc-level3::before {
+    content: counter(toc_level2) "." counter(toc_level3) "　";
+    display: inline-block;
+}
+
+body.toc .toc-level4::before {
+    content: counter(toc_level2) "." counter(toc_level3) "." counter(toc_level4) "　";
+    display: inline-block;
+}
+
+body.toc .toc-level2::after, body.toc .toc-level3::after, body.toc .toc-level4::after {
+    font-size: 10Q;
+    font-family: var(--monospace-font);
+    content: leader(dotted) " " target-counter(attr(href url), p);
+    margin-inline-start: 0.5em;
+}
+
+body.toc li code {   /* タイトルのcode要素が少し小ぶりに見えるので調整 */
+    font-size: 105%;
+}
+
+body.toc hr{
+    break-before: page;
+    visibility: hidden;
+}
+
+body.toc h1 {
+    font-size: 24Q;
+    display:inline-block;
+    width: 100%;
+    border-bottom: #000 solid 1pt;
+    break-before: left;
+    margin-block-start: 1em;
+    margin-block-end: 0.8em;
+}
+
+body.toc h2 {
+    font-size: 20Q;
+    /* border-left: #000 solid 4pt; */
+    padding-left: 0.5em;
+    margin-block-start: 1.2em;
+    margin-block-end: 0.6em;
+}
+
+/* **************************************************************** まえがき，あとがき */
+
+body.preface h1, body.postface h1 {
+    font-size: 24Q;
+    display:inline-block;
+    width: 100%;
+    border-bottom: #000 solid 1pt;
+    break-before: left;
+    margin-block-start: 1em;
+    margin-block-end: 0.8em;
+}
+
+body.preface h2, body.postface h2 {
+    font-size: 20Q;
+    padding-left: 0.5em;
+    margin-block-start: 1.2em;
+    margin-block-end: 0.6em;
+}
+
+body.preface .signature, body.postface .signature {
+    display: block;
+    text-align: right;
+    margin-top: 1em;
+}
+
+/* **************************************************************** 奥付 */
+
+body.colophon {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+
+body.colophon #book-info {
+    margin-top: auto;
+}
+
+body.colophon #author-info h1 {
+    font-size: 16Q;
+    border: none;
+}
+
+body.colophon  #author-info h1::before{
+    content: "[";
+}
+
+body.colophon #author-info h1::after{
+    content: "]";
+}
+
+body.colophon #author-info p {
+    line-height: 1.8em;
+    text-indent: 0;
+}
+
+body.colophon #author-info dl {
+    margin-block-start: 0mm;
+    display: grid;
+    grid-template-columns: 6em auto;
+    column-gap: 1em;
+    row-gap: 0mm;
+}
+
+body.colophon #author-info dl dt {
+    margin: 0;
+}
+
+body.colophon #author-info dl dd {
+    margin: 0;
+}
+
+body.colophon #book-info dl{
+    display: grid;
+    grid-template-columns: 4em 4em auto;
+    column-gap: 1em;
+    row-gap: 1mm;
+}
+
+body.colophon #book-info dt {
+    grid-column: 1/2;
+    text-align-last: justify;
+    margin: 0;
+}
+
+body.colophon #book-info dd {
+    grid-column: 2/4;
+    margin: 0;
+}
+
+body.colophon #book-info dt.title {
+    grid-column: 1/4;
+    font-size: 18Q;
+    line-height: 1.5em;
+    border-block-end: solid 0.5mm #000;
+    padding-block-end: 2mm;
+    margin-block-end: 2mm;
+    text-align-last: left;
+}
+
+body.colophon #book-info dt.title::after{ /* タイトルは自動的に */
+    content: env(pub-title);
+}
+
+body.colophon #book-info dt.publish {
+    grid-column: 1/3;
+}
+
+body.colophon #book-info dt.publish + dd{
+    grid-column: 3/4;
+}
+

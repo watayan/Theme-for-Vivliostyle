@@ -1,14 +1,14 @@
-const maxLevel = 2; // 目次に含める見出しの最大レベル
+const maxLevel = 3; // 目次に含める見出しの最大レベル
 
 const fs = require('fs');
 
 function makeToc() 
 {
-    const header = '<nav id="toc" role="doc-toc">\n\n## 目次\n\n';
-    const footer = '\n\n</nav>\n\n' +
-                '---\n\n' +     // 免責事項を別ページにしないときはこの行を削除
+    const header = '---\nclass: toc\ntitle: 目次\n---\n\n# 目次\n\n<nav>\n\n';
+    const footer = '\n\n</nav>\n' +
+                '\n---\n\n' +     // 免責事項を別ページにしないときはこの行を削除
 `
-### 免責事項
+## 免責事項
 
 - 本書の内容は今後予告なく変更されることがあります。
 - 本書の内容に関する質問や誤りの指摘は歓迎しますが，必ずしも対応できるとは限りません。
