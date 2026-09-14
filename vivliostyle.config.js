@@ -11,7 +11,7 @@ export default defineConfig({
   theme: 'css/common.css',
   entry: [
     'preface.md',
-    'toc.md',
+    {rel: 'contents', path:'toc.md'},
     'topic01.md',
     'topic02.md',
     'topic03.md',
