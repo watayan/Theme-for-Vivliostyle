@@ -89,14 +89,16 @@ html.colophon {page: colophon;}                     /* 奥付 */
 @page :nth(1 of contents)    { counter-increment: p level2;}
 @page :nth(1 of contents_h1) { counter-increment: p level1 level2;}
 
-/*********************************************************** 見出し */
+/* **************************************************************** 共通設定 */
+
+body{
+    counter-reset: code-counter figure-counter;
+}
 
 h1, h2, h3, h4, h5, h6{
     font-family: var(--sans-serif-font);
     font-weight: 400;
 }
-
-/* **************************************************************** 共通設定 */
 
 p {
     font-size: 13Q;
@@ -384,10 +386,12 @@ body.colophon #author-info dl {
 }
 
 body.colophon #author-info dl dt {
+    grid-column: 1/2;
     margin: 0;
 }
 
 body.colophon #author-info dl dd {
+    grid-column: 2/3;
     margin: 0;
 }
 
@@ -395,7 +399,7 @@ body.colophon #book-info dl{
     display: grid;
     grid-template-columns: 4em 4em auto;
     column-gap: 1em;
-    row-gap: 1mm;
+    row-gap: 0mm;
 }
 
 body.colophon #book-info dt {

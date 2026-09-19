@@ -8,15 +8,15 @@
     "toc" : "node toc.cjs",
     "outline" : "node outline.cjs",
     "build" : "npm run toc && npx vivliostyle build",
-    "full": "npm run toc && npx vivliostyle build & pdftk cover1.pdf cover2.pdf contents.pdf cover3.pdf cover4.pdf cat output hoge.pdf",
+    "full": "npm run toc && npx vivliostyle build && pdftk cover1.pdf cover2.pdf contents.pdf cover3.pdf cover4.pdf cat output whole-book.pdf",
     "preview" : "npm run toc && npx vivliostyle preview",
-    "clean" : "rm -f contents.pdf toc.md",
-    "distclean" : "npm run clean && rm -f hoge.pdf"
+    "clean" : "rm -rf toc.md .vivliostyle",
+    "distclean" : "npm run clean && rm -f contents.pdf whole-book.pdf"
   },
   "author": "あなたの名前",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@vivliostyle/cli": "^10.3.1"
+    "@vivliostyle/cli": "^11.3.3"
   }
 }

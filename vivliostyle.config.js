@@ -6,7 +6,7 @@ export default defineConfig({
   author: "My Name",
   language: "ja",
   browser: "chrome@150.0.7871.115",
-  image: "ghcr.io/vivliostyle/cli:11.2.0",
+  image: "ghcr.io/vivliostyle/cli:11.3.3",
   size: 'A5',
   theme: 'css/common.css',
   entry: [
