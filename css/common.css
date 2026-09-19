@@ -234,35 +234,54 @@ body.toc nav, body.toc nav ul {
 
 body.toc .toc-level1 {                      /* chapter見出し */
     font-family: var(--sans-serif-font);
-    counter-increment: toc_level1;
     font-size: 18Q;
     line-height: 2em;
+    counter-increment: toc_level1;
+    /* counter-reset: toc_level2; */ /* 通し番号なのでここではリセットしない */
 }
 
 body.toc .toc-level2 {                      /* section見出し */
-    counter-increment: toc_level2;
-    counter-reset: toc_level3;
     font-family: var(--sans-serif-font);
     font-size: 16Q;
     line-height: 1.8em;
     margin-inline-start: 6mm;
+    counter-increment: toc_level2;
+    counter-reset: toc_level3;
 }
 
 body.toc .toc-level3{
-    counter-increment: toc_level3;
-    counter-reset: toc_level4;
     font-family: var(--sans-serif-font);
     font-size: 14Q;
     line-height: 1.2em;
     margin-inline-start: 12mm;
+    counter-increment: toc_level3;
+    counter-reset: toc_level4;
 }
 
 body.toc .toc-level4{
-    counter-increment: toc_level4;
     font-family: var(--sans-serif-font);
     font-size: 14Q;
     line-height: 1.2em;
     margin-inline-start: 18mm;
+    counter-increment: toc_level4;
+    counter-reset: toc_level5;
+}
+
+body.toc .toc-level5{
+    font-family: var(--sans-serif-font);
+    font-size: 14Q;
+    line-height: 1.2em;
+    margin-inline-start: 24mm;
+    counter-increment: toc_level5;
+    counter-reset: toc_level6;
+}
+
+body.toc .toc-level6{
+    font-family: var(--sans-serif-font);
+    font-size: 14Q;
+    line-height: 1.2em;
+    margin-inline-start: 30mm;
+    counter-increment: toc_level6;
 }
 
 body.toc .toc-level1::before {
@@ -285,7 +304,12 @@ body.toc .toc-level4::before {
     display: inline-block;
 }
 
-body.toc .toc-level2::after, body.toc .toc-level3::after, body.toc .toc-level4::after {
+/* body.toc .toc-level1::after,  */ /* 1レベル目の後ろのリーダーは表示しない */
+body.toc .toc-level2::after, 
+body.toc .toc-level3::after, 
+body.toc .toc-level4::after,
+body.toc .toc-level5::after, 
+body.toc .toc-level6::after {
     font-size: 10Q;
     font-family: var(--monospace-font);
     content: leader(dotted) " " target-counter(attr(href url), p);
