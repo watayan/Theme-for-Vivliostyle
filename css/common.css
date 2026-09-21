@@ -63,6 +63,11 @@
         font-size: 10Q;
         content: "- " counter(p) " -";
     }
+    @footnote {
+        border-top: #000 solid 1pt;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+    }
 }
 
 @page colophon {
@@ -459,3 +464,46 @@ body.colophon #book-info dt.publish + dd{
     grid-column: 3/4;
 }
 
+
+/* 脚注のスタイル */
+
+/* <span class="notetext"> 形式 */
+.notetext{
+    float: footnote;
+    font-size: 12Q;
+    line-height: 16Q;
+    text-indent: 0;
+}
+
+.notetext::after {
+    display: table;
+    clear: both;
+}
+
+/* dpub 脚注のスタイル */
+.footnote {
+    font-size: 12Q;
+    line-height: 16Q;
+}
+
+/* 共通 */
+::footnote-call{ /* 脚注呼び出し */
+    content: "（注" counter(footnote) "）";
+    font-size: 0.7em;
+    vertical-align: super; /* .notetext では元々super */
+}
+
+::footnote-marker{ /* 脚注マーカー */
+    list-style-position: outside;
+    content: "（注" counter(footnote) ") ";
+    /* font-size: 0.7em; */
+    /* vertical-align: super; */
+}
+
+[role="doc-footnote"]{
+    margin-inline-start: 3em;
+}
+
+[role="doc-backlink"]{
+    display: none;
+}

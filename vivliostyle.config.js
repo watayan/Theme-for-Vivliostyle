@@ -8,6 +8,7 @@ export default defineConfig({
   browser: "chrome@150.0.7871.115",
   image: "ghcr.io/vivliostyle/cli:11.3.3",
   size: 'A5',
+  vfm: {footnote: 'dpub'},
   theme: 'css/common.css',
   entry: [
     'preface.md',
